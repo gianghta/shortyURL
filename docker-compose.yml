@@ -1,0 +1,25 @@
+version: '3'
+services: 
+    web:
+        build: .
+        depends_on:
+            - postgres
+        links:
+            - "postgres:postgres"
+        volumes: 
+            - .:/shortyurl
+        environment: 
+            - MODE
+            - POSTGRES_HOST=postgres
+        ports: 
+            - "8000:8000"
+        command: bash -c "poetry run python app/main.py"
+    
+    postgres:
+        restart: always
+        image: postgres:latest
+        env_file: .env
+        volumes:
+        - /var/lib/postgresql
+        ports:
+        - "5432:5432"
