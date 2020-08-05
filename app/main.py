@@ -6,9 +6,8 @@ from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from enum import Enum
 
-from . import models, schemas
-from .database import engine, SessionLocal
-
+import crud, models, schemas
+from database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
