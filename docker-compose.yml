@@ -1,22 +1,22 @@
 version: '3.7'
 
-services: 
+services:
     web:
         build: .
         depends_on:
             - postgres
         links:
             - "postgres:postgres"
-        volumes: 
+        volumes:
             - .:/shortyurl
         env_file: .env
-        environment: 
+        environment:
             - MODE
             - POSTGRES_HOST=postgres
-        ports: 
+        ports:
             - "8000:8000"
-        command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
-    
+        command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+
     postgres:
         restart: always
         image: postgres:latest

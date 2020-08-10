@@ -1,7 +1,7 @@
 from time import time
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.types import Date
-from app.db.database import Base
+from db.database import Base
 
 
 def unix_time():
