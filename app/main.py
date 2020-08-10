@@ -1,29 +1,44 @@
-import uvicorn
+import logging
 
-from typing import Optional
 from fastapi import FastAPI
-from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
-from enum import Enum
 
-import crud, models, schemas
-from database import SessionLocal, engine
+from app.db.database import SessionLocal, engine
+from app.models.models import Base
+from app.api import url
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+log = logging.getLogger(__name__)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-@app.get('/')
-async def read_root():
-    return {"Hello": "World"}
+def create_application() -> FastAPI:
+    application = FastAPI()
+    application.include_router(url.router)
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    application.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+        allow_credentials=True,
+    )
+
+    return application
+
+app = create_application()
+
+@app.on_event("startup")
+async def startup_event():
+    log.info("Starting up...")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    log.info("Shutting down...")

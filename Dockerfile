@@ -1,14 +1,21 @@
 FROM tiangolo/uvicorn-gunicorn:python3.8
 
-# Install Poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
-    cd /usr/local/bin && \
-    ln -s /opt/poetry/bin/poetry && \
-    poetry config virtualenvs.create false
+# set working directory
+WORKDIR /usr/src/app
 
-# Copy using poetry.lock* in case it doesn't exist yet
-COPY ./pyproject.toml ./poetry.lock* /app/
+# set environment varibles
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-RUN poetry install --no-root --no-dev
+# install system dependencies
+RUN apt-get update \
+    && apt-get -y install netcat gcc \
+    && apt-get clean
 
-COPY ./app /app
+# install python dependencies
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+# add app
+COPY . .
