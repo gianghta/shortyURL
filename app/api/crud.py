@@ -4,9 +4,12 @@ from hashlib import md5
 from models import models, schemas
 
 
-def post(db: Session, url: schemas.UrlPayloadSchema):
+def get(db: Session, url: schemas.EncodedUrlSchema):
+    return db.query(models.Url).filter(models.Url.encoded_url == url).first()
+
+def post(db: Session, url: schemas.ActualUrlSchema):
     # hashing url
-    hashObject = md5(url.actual_url)
+    hashObject = md5(url.actual_url.encode('utf-8'))
     shrinkedURL = hashObject.hexdigest()[:8]
 
     new_url = models.Url(actual_url=url.actual_url, encoded_url=shrinkedURL)

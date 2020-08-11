@@ -1,14 +1,14 @@
 from pydantic import BaseModel
 
 
-class UrlPayloadSchema(BaseModel):
+class ActualUrlSchema(BaseModel):
     actual_url: str
 
     class Config:
-        orm_mod = True
+        orm_mode = True
 
-class UrlResponseSchema(BaseModel):
+class EncodedUrlSchema(BaseModel):
     encoded_url: str
 
     class Config:
-        orm_mod = True
+        orm_mode = True
