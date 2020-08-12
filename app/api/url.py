@@ -29,7 +29,7 @@ def create_encoded_url(payload: ActualUrlSchema, db: Session = Depends(get_db)) 
 
     response_object = {
         "id": new_url.id,
-        "encoded_url": new_url.encoded_url
+        "encoded_url": "http://localhost:8000/{}".format(new_url.encoded_url)
     }
 
     return response_object

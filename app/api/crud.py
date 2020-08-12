@@ -9,7 +9,9 @@ def get(db: Session, url: schemas.EncodedUrlSchema):
 
 def post(db: Session, url: schemas.ActualUrlSchema):
     # hashing url
-    hashObject = md5(url.actual_url.encode('utf-8'))
+    processed_url = url.actual_url.replace('https://', '')
+    processed_url = processed_url.replace('http://', '')
+    hashObject = md5(processed_url.encode('utf-8'))
     shrinkedURL = hashObject.hexdigest()[:8]
 
     new_url = models.Url(actual_url=url.actual_url, encoded_url=shrinkedURL)
