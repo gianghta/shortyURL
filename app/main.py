@@ -7,17 +7,10 @@ from db.database import get_db, engine
 from models.models import Base
 from api import url
 
+
 Base.metadata.create_all(bind=engine)
 
 log = logging.getLogger(__name__)
-
-# Dependency
-# def get_db():
-#     db = SessionLocal()
-#     try:
-#         yield db
-#     finally:
-#         db.close()
 
 def create_application() -> FastAPI:
     application = FastAPI()
