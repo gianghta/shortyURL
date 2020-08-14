@@ -5,14 +5,13 @@ from sqlalchemy.types import Date
 from hashlib import md5
 
 from models import schemas
-from db.database import Base
+from db.base import Base
 
 
 def unix_time():
     return int(time())
 
 class Url(Base):
-    __tablename__ = "urls"
     id = Column(Integer, primary_key=True, autoincrement=True)
     encoded_url = Column(String)
     actual_url = Column(String)

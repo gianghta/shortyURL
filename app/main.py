@@ -2,15 +2,14 @@ import logging
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from typing import Generator
 
-from db.database import get_db, engine
-from models.models import Base
+from db.session import SessionLocal
 from api import url
 
 
-Base.metadata.create_all(bind=engine)
-
 log = logging.getLogger(__name__)
+
 
 def create_application() -> FastAPI:
     application = FastAPI()
@@ -26,11 +25,22 @@ def create_application() -> FastAPI:
 
     return application
 
+
 app = create_application()
+
+# Dependency to get DB session.
+def get_db() -> Generator:
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
+
 
 @app.on_event("startup")
 async def startup_event():
     log.info("Starting up...")
+
 
 @app.on_event("shutdown")
 async def shutdown_event():
