@@ -18,7 +18,7 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-from app.db import Base
+from db import Base
 
 target_metadata = Base.metadata
 
@@ -29,7 +29,7 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    from app.config import DATABASE_URL
+    from config import DATABASE_URL
 
     return DATABASE_URL
 
