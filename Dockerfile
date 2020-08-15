@@ -1,7 +1,7 @@
 FROM tiangolo/uvicorn-gunicorn:python3.8
 
 # set working directory
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
 # set environment varibles
 ENV PYTHONDONTWRITEBYTECODE 1

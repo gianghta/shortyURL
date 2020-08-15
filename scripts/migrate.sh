@@ -2,9 +2,6 @@
 
 export PYTHONPATH="${PWD}/app"
 
-# Install dependencies
-poetry export -f requirements.txt --without-hashes > requirements/main.txt
-
 # # Clean the old versions
 # rm -r migrations/versions/*
 # docker-compose exec postgres psql -U postgres -c "DROP TABLE IF EXISTS alembic_version;"

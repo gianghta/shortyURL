@@ -29,9 +29,15 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    from config import DATABASE_URL
+    from config import settings
 
-    return DATABASE_URL
+    user = settings.POSTGRES_USER
+    password = settings.POSTGRES_PASSWORD
+    host = settings.POSTGRES_HOST
+    port = settings.POSTGRES_PORT
+    db = settings.POSTGRES_DB
+
+    return f"postgresql://{user}:{password}@{host}:{port}/{db}"
 
 
 def run_migrations_offline():
