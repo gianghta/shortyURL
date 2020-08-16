@@ -1,7 +1,9 @@
-FROM tiangolo/uvicorn-gunicorn:python3.8
+# pull official base image
+FROM python:3.8.3-slim-buster
 
 # set working directory
-# WORKDIR /usr/src/app
+RUN mkdir /app
+WORKDIR /app
 
 # set environment varibles
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -15,7 +17,7 @@ RUN apt-get update \
 # install python dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # add app
-COPY ./app /app
+COPY . .

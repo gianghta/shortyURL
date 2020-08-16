@@ -1,11 +1,11 @@
 import logging
+import uvicorn
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from db.session import SessionLocal
-from api import url
-
+from app.db.session import engine
+from app.api import url
 
 log = logging.getLogger(__name__)
 
@@ -36,3 +36,7 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     log.info("Shutting down...")
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8000)

@@ -10,7 +10,6 @@ fastapi = "^0.60.1"
 uvicorn = "^0.11.8"
 psycopg2-binary = "^2.8.5"
 alembic = "^1.4.2"
-inflect = "^4.1.0"
 python-dotenv = "^0.14.0"
 
 [tool.poetry.dev-dependencies]

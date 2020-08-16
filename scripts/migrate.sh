@@ -7,5 +7,5 @@ export PYTHONPATH="${PWD}/app"
 # docker-compose exec postgres psql -U postgres -c "DROP TABLE IF EXISTS alembic_version;"
 
 # Run the migration
-poetry run alembic revision --autogenerate --head head
-poetry run alembic upgrade head
+docker-compose run alembic --rm revision --autogenerate --head head
+docker-compose run alembic --rm upgrade head
