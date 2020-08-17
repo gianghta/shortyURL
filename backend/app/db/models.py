@@ -22,8 +22,8 @@ class Url(Base):
     updated_at = Column(Integer, onupdate=unix_time)
 
     @classmethod
-    def get(cls, db: Session, url: schemas.EncodedUrlSchema):
-        return db.query(Url).filter(Url.encoded_url == url.encoded_url).first()
+    def get(cls, db: Session, url: str):
+        return db.query(Url).filter(Url.encoded_url == url).first()
 
     @classmethod
     def get_all_url(cls, db: Session, url: schemas.EncodedUrlSchema):
@@ -37,6 +37,7 @@ class Url(Base):
         if not query:
             processed_url = url.actual_url.replace("https://", "")
             processed_url = processed_url.replace("http://", "")
+            processed_url = processed_url.replace("www.", "")
             hashObject = md5(processed_url.encode("utf-8"))
             shrinkedURL = hashObject.hexdigest()[:8]
 

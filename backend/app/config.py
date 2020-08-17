@@ -1,5 +1,13 @@
+# backend/app/config.py
+
+import logging
+
 from typing import Any, Dict, Optional
 from pydantic import BaseSettings, PostgresDsn, validator
+from functools import lru_cache
+
+
+log = logging.getLogger(__name__)
 
 
 class Settings(BaseSettings):
@@ -25,7 +33,7 @@ class Settings(BaseSettings):
             password=values.get("POSTGRES_PASSWORD"),
             port=values.get("POSTGRES_PORT"),
             host=values.get("POSTGRES_HOST"),
-            path=f"/{values.get('POSTGRES_DB') or  ''}",
+            path=f"/{values.get('POSTGRES_DB'), ''}",
         )
 
         class Config:
@@ -38,4 +46,7 @@ class Settings(BaseSettings):
             env_file = ".env"
 
 
-settings = Settings()
+@lru_cache
+def get_settings() -> BaseSettings:
+    log.info("Loading config settings from the environment")
+    return Settings()
