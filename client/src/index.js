@@ -4,29 +4,94 @@ import './tailwind.output.css';
 
 const App = () => {
 	return (
-		<div class="flex items-center justify-center h-screen">
-			<div class="bg-indigo-800 text-white font-bold rounded-lg border shadow-lg p-10">
-				<div class="relative mr-6 my-2">
-					<input type="search" class="bg-purple-white shadow rounded border-0 p-3" placeholder="Search by name..." />
-					<div class="absolute pin-r pin-t mt-3 mr-4 text-purple-lighter">
-						<svg
-							version="1.1"
-							class="h-4 text-dark"
-							xmlns="http://www.w3.org/2000/svg"
-							xmlnsXlink="http://www.w3.org/1999/xlink"
-							x="0px"
-							y="0px"
-							viewBox="0 0 52.966 52.966"
-							style={{ 'enable-background': 'new 0 0 52.966 52.966' }}
-							xmlSpace="preserve"
-						>
-							<path d="M51.704,51.273L36.845,35.82c3.79-3.801,6.138-9.041,6.138-14.82c0-11.58-9.42-21-21-21s-21,9.42-21,21s9.42,21,21,21
-                    c5.083,0,9.748-1.817,13.384-4.832l14.895,15.491c0.196,0.205,0.458,0.307,0.721,0.307c0.25,0,0.499-0.093,0.693-0.279
-                    C52.074,52.304,52.086,51.671,51.704,51.273z M21.983,40c-10.477,0-19-8.523-19-19s8.523-19,19-19s19,8.523,19,19
-                    S32.459,40,21.983,40z" />
-						</svg>
+		<div class="h-screen bg-gray-900 font-nunito">
+			<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" />
+
+			<div id="app">
+				<nav class="bg-gray-800 shadow-sm">
+					<div class="container flex justify-between items-center mx-auto px-6 py-4">
+						<div>
+							<a href="http://localhost:8000" class="text-xl text-white">
+								Base
+							</a>
+						</div>
+
+						<div>
+							<a href="http://localhost:8000/login" class="text-gray-400 font-light mx-4 hover:underline">
+								Login
+							</a>
+							<a href="http://localhost:8000/register" class="text-gray-400 font-light hover:underline">
+								Register
+							</a>
+						</div>
 					</div>
-				</div>
+				</nav>
+
+				<main>
+					<div class="flex items-center justify-center mt-16 mx-6">
+						<div class="p-6 max-w-sm w-full bg-gray-800 shadow rounded-md">
+							<h3 class="text-white text-xl text-center">Login</h3>
+
+							<form class="mt-4" method="POST" action="http://localhost:8000/login">
+								<input type="hidden" name="_token" value="96LGLQC0ylNCwHDLyTqFuBvSMwOqHi7voLu8lwj4" />
+								<label class="block">
+									<span class="text-white text-sm">E-Mail Address</span>
+									<input
+										type="email"
+										id="email"
+										name="email"
+										class="form-input mt-1 block w-full rounded-md bg-gray-800 border-gray-700 text-white"
+										value=""
+										required
+										autocomplete="email"
+										autofocus
+									/>
+								</label>
+
+								<label class="block mt-3">
+									<span class="text-white text-sm">Password</span>
+									<input
+										id="password"
+										type="password"
+										class="form-input mt-1 block w-full rounded-md bg-gray-800 border-gray-700 text-white"
+										name="password"
+										required
+										autocomplete="current-password"
+									/>
+								</label>
+
+								<div class="flex justify-between items-center mt-4">
+									<div>
+										<label class="inline-flex items-center">
+											<input
+												type="checkbox"
+												class="form-checkbox text-blue-500 bg-gray-800 border-gray-600"
+												name="remember"
+												id="remember"
+											/>
+											<span class="mx-2 text-gray-200 text-sm">Remember Me</span>
+										</label>
+									</div>
+
+									<div>
+										<a class="block text-sm text-blue-500 hover:underline" href="http://localhost:8000/password/reset">
+											Forgot Your Password?
+										</a>
+									</div>
+								</div>
+
+								<div class="mt-6">
+									<button
+										type="submit"
+										class="w-full py-2 px-4 text-center bg-blue-600 rounded-md text-white text-sm hover:bg-blue-500 focus:outline-none"
+									>
+										Login
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</main>
 			</div>
 		</div>
 	);
